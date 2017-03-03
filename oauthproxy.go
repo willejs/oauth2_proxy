@@ -124,6 +124,7 @@ func NewOAuthProxy(opts *Options, validator func(string) bool) *OAuthProxy {
 			u.Path = ""
 			log.Printf("mapping path %q => upstream %q", path, u)
 			proxy := NewReverseProxy(u)
+			proxy.FlushInterval = 100 * time.Millisecond
 			if !opts.PassHostHeader {
 				setProxyUpstreamHostHeader(proxy, u)
 			} else {
